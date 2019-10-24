@@ -1,10 +1,9 @@
-const nodeDev = process.env.NODE_ENV !== 'production'
+const modoDev = process.env.NODE_ENV !== 'production'
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-
 
 
 module.exports = {
@@ -53,7 +52,9 @@ module.exports = {
             test:  /.(ttf|otf|svg|woff(2)?)$/,
             use: ['file-loader']
         }]
-    }
+    } ,
+    
+ 
     
 
  }
