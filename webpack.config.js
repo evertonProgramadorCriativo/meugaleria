@@ -5,56 +5,49 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-
 module.exports = {
-    mode: modoDev ? 'development' : 'production' , 
+    mode: modoDev ? 'development' : 'production',
     entry: './src/index.js',
     devServer: {
         contentBase: './build',
-        port: 9099,
+        port: 9000,
     },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true,
+                sourceMap: true
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
     },
     output: {
         filename: 'app.js',
-        path: __dirname + '/build',
+        path: __dirname + '/build'
     },
-
     plugins: [
         new MiniCssExtractPlugin({ filename: 'estilo.css' }),
-        new CopyWebpackPlugin ([
-            {context: 'src/',  from: '**/*.html'},
-            {context: 'src/',  from: 'imgs/**/*'},
+        new CopyWebpackPlugin([
+            { context: 'src/', from: '**/*.html' },
+            { context: 'src/', from: 'imgs/**/*' }
         ])
     ],
-
     module: {
         rules: [{
             test: /\.s?[ac]ss$/,
             use: [
                 MiniCssExtractPlugin.loader,
-                'css-loader',
-                 'sass-loader',
+                // 'style-loader', // Adiciona CSS a DOM injetando a tag <style>
+                'css-loader', // interpreta @import, url()...
+                'sass-loader',
             ]
         }, {
-            test:  /\.(png|svg|jpg|gif)$/,
+            test: /\.(png|svg|jpg|gif)$/,
             use: ['file-loader']
-
-        },{
-            test:  /.(ttf|otf|svg|woff(2)?)$/,
+        }, {
+            test: /.(ttf|otf|eot|svg|woff(2)?)$/,
             use: ['file-loader']
         }]
-    } ,
-    
- 
-    
-
- }
+    }
+}
